@@ -12,6 +12,7 @@ namespace APCrmAPI
         {
             // Web API configuration and services
             config.EnableCors(new EnableCorsAttribute("https://ztanvir-1.github.io", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();

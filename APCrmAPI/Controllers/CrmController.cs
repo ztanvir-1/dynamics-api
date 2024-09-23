@@ -8,6 +8,7 @@ using Microsoft.Xrm.Sdk.Query;
 using APCrmAPI.Services;
 using Microsoft.Xrm.Sdk;
 using APCrmAPI.Models.RPCode;
+using System.Collections;
 
 namespace APCrmAPI.Controllers
 {
@@ -23,18 +24,26 @@ namespace APCrmAPI.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("api/crm/getRpCodeById")]
-        public Note_RpCode GetLogoAnnotationByRpCodeId(string rpCodeId)
+        [System.Web.Http.Route("api/crm/GetLogoAnnotationByRpCodeName")]
+        public Note_RpCode GetLogoAnnotationByRpCodeName(string rpCodeName)
         {
             Note_RpCode logoData = new Note_RpCode();
-
+            //Guid rpCodeGuid = Guid.Empty;
             try
             {
+                //rpCodeGuid = GetRpCodeGuidByRpCodeName(rpCodeName);
                 QueryExpression query = new QueryExpression("annotation");
-                query.Criteria.AddCondition("objectid", ConditionOperator.Equal, rpCodeId);
+                //query.Criteria.AddCondition("objectid", ConditionOperator.Equal, rpCodeId);
                 query.Criteria.AddCondition("mimetype", ConditionOperator.In, ImageTypes.ToArray());
                 query.Criteria.AddCondition("subject", ConditionOperator.Equal, "LogoImage");
                 query.ColumnSet = new ColumnSet(new string[] { "subject", "notetext", "objectid", "mimetype", "documentbody", "filename" });
+
+                LinkEntity rpCodeLink = new LinkEntity("annotation", "gr_cpc", "objectid", "gr_cpcid", JoinOperator.Inner);
+                rpCodeLink.LinkCriteria.AddCondition("gr_cpccode", ConditionOperator.Equal, rpCodeName);
+                rpCodeLink.Columns = new ColumnSet("gr_referralurl", "gr_cpccode");
+                rpCodeLink.EntityAlias = "rp";
+
+                query.LinkEntities.Add(rpCodeLink);
                 query.AddOrder("createdon", OrderType.Ascending);
 
                 EntityCollection logoImageEntities = CrmService.GetOrganizationServiceProxy().RetrieveMultiple(query);
@@ -82,12 +91,39 @@ namespace APCrmAPI.Controllers
                 {
                     logoData.FileName = entity.Attributes["filename"].ToString();
                 }
+                if (entity.Attributes.ContainsKey("rp.gr_referralurl"))
+                {
+                    logoData.PartnerUrl =  ((AliasedValue)entity.Attributes["rp.gr_referralurl"]).Value.ToString();
+                }
             }
             catch (Exception ex) 
             {
             
             }
             return logoData;    
+        }
+
+        public Guid GetRpCodeGuidByRpCodeName(string rpCodeName)
+        {
+            Guid rPCodeGuid = new Guid();
+            try
+            {
+                QueryExpression rpCodeQuery = new QueryExpression("gr_cpc");
+                rpCodeQuery.Criteria.AddCondition("gr_cpccode", ConditionOperator.Equal, rpCodeName);
+                rpCodeQuery.ColumnSet = new ColumnSet("gr_cpcid");
+
+                EntityCollection rpCodeEntities = CrmService.GetOrganizationServiceProxy().RetrieveMultiple(rpCodeQuery);
+                if (rpCodeEntities != null && rpCodeEntities.Entities != null && rpCodeEntities.Entities.Count > 0)
+                {
+                    Entity rpCodeEntity = rpCodeEntities[0];
+                    rPCodeGuid = rpCodeEntity.Id;
+                }
+
+            }
+            catch (Exception ex) 
+            {
+            }
+            return rPCodeGuid;
         }
     }
 }

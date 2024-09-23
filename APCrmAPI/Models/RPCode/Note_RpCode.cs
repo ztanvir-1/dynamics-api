@@ -30,5 +30,8 @@ namespace APCrmAPI.Models.RPCode
 
         [DataMember(Name = "fileName")]
         public string FileName { get; set; }
+        
+        [DataMember(Name = "partnerUrl")]
+        public string PartnerUrl { get; set; }
     }
 }
