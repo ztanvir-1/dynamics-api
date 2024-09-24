@@ -14,33 +14,31 @@ public class CorsMessageHandler : DelegatingHandler
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        // Handle CORS preflight request (OPTIONS)
-        if (request.Method == HttpMethod.Options)
+        var origin = request.Headers.GetValues("Origin").FirstOrDefault();
+
+        // Handle preflight OPTIONS request
+        if (request.Method == HttpMethod.Options && origin != null && allowedOrigins.Contains(origin))
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            AddCorsHeaders(response, request);
+            response.Headers.Add("Access-Control-Allow-Origin", origin);
+            response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
+            response.Headers.Add("Access-Control-Allow-Credentials", "true");
             return response;
         }
 
         // Handle normal requests
         var httpResponse = await base.SendAsync(request, cancellationToken);
 
-        // Add CORS headers to the response
-        AddCorsHeaders(httpResponse, request);
-
-        return httpResponse;
-    }
-
-    private void AddCorsHeaders(HttpResponseMessage response, HttpRequestMessage request)
-    {
-        var origin = request.Headers.GetValues("Origin").FirstOrDefault();
-
+        // Add CORS headers to the response for normal requests
         if (origin != null && allowedOrigins.Contains(origin))
         {
-            response.Headers.Add("Access-Control-Allow-Origin", origin);
-            response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-            response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
-            response.Headers.Add("Access-Control-Allow-Credentials", "true");
+            httpResponse.Headers.Add("Access-Control-Allow-Origin", origin);
+            httpResponse.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            httpResponse.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
+            httpResponse.Headers.Add("Access-Control-Allow-Credentials", "true");
         }
+
+        return httpResponse;
     }
 }
