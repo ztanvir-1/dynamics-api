@@ -1,14 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Threading;
+using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
+using System.Threading;
 
 public class CorsMessageHandler : DelegatingHandler
 {
-    // List of allowed origins
     private readonly string[] allowedOrigins = new string[]
     {
         "http://localhost:4200",
