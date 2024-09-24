@@ -258,7 +258,7 @@
     <Content Include="bin\System.Web.Mvc.dll" />
     <!-- <Content Include="bin\System.Web.Mvc.xml" /> -->
     <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
+    <!-- <Content Include="bin\System.Web.Optimization.xml" /> -->
     <Content Include="bin\System.Web.Razor.dll" />
     <!-- <Content Include="bin\System.Web.Razor.xml" /> -->
     <Content Include="bin\System.Web.WebPages.Deployment.dll" />
