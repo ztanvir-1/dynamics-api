@@ -29,9 +29,7 @@ C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\roslyn\vbc.exe.config
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\roslyn\vbc.rsp
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\roslyn\VBCSCompiler.exe
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Crm.Sdk.Proxy.dll
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Xrm.Sdk.dll
-C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Newtonsoft.Json.dll
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\obj\Debug\APCrmAPI.csproj.CopyComplete
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\obj\Debug\APCrmAPI.dll
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\obj\Debug\APCrmAPI.pdb
@@ -53,3 +51,6 @@ C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.ServiceModel.Http.pdb
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.ServiceModel.Primitives.pdb
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Web.Http.Cors.xml
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Crm.Sdk.dll
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Memory.xml
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
