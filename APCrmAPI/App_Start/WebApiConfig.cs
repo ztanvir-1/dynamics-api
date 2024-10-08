@@ -11,7 +11,7 @@ namespace APCrmAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            // config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
             config.EnableCors(new EnableCorsAttribute("https://ztanvir-1.github.io", "*", "*"));
 
             // var cors = new EnableCorsAttribute("https://ztanvir-1.github.io", "*", "*");
