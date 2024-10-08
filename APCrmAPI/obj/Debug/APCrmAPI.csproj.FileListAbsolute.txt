@@ -51,7 +51,6 @@ C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.ServiceModel.Http.pdb
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.ServiceModel.Primitives.pdb
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Web.Http.Cors.xml
-C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Crm.Sdk.dll
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Memory.xml
 C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\DynamicsProjects\DeploymentScriptOutput\APCrmAPI\APCrmAPI.dll.config
@@ -88,3 +87,6 @@ C:\AP-test\dynamics-api\APCrmAPI\obj\Debug\APCrmAPI.csproj.CoreCompileInputs.cac
 C:\AP-test\dynamics-api\APCrmAPI\obj\Debug\APCrmAPI.csproj.CopyComplete
 C:\AP-test\dynamics-api\APCrmAPI\obj\Debug\APCrmAPI.dll
 C:\AP-test\dynamics-api\APCrmAPI\obj\Debug\APCrmAPI.pdb
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Xrm.Sdk.xml
+C:\Users\ztanvir\APCrmAPI\APCrmAPI\bin\Microsoft.Crm.Sdk.Proxy.xml

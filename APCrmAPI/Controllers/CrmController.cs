@@ -28,34 +28,31 @@ namespace APCrmAPI.Controllers
         public Note_RpCode GetLogoAnnotationByRpCodeName(string rpCodeName)
         {
             Note_RpCode logoData = new Note_RpCode();
-            //Guid rpCodeGuid = Guid.Empty;
             try
             {
-                //rpCodeGuid = GetRpCodeGuidByRpCodeName(rpCodeName);
                 QueryExpression query = new QueryExpression("annotation");
-                //query.Criteria.AddCondition("objectid", ConditionOperator.Equal, rpCodeId);
                 query.Criteria.AddCondition("mimetype", ConditionOperator.In, ImageTypes.ToArray());
                 query.Criteria.AddCondition("subject", ConditionOperator.Equal, "LogoImage");
                 query.ColumnSet = new ColumnSet(new string[] { "subject", "notetext", "objectid", "mimetype", "documentbody", "filename" });
 
                 LinkEntity rpCodeLink = new LinkEntity("annotation", "gr_cpc", "objectid", "gr_cpcid", JoinOperator.Inner);
                 rpCodeLink.LinkCriteria.AddCondition("gr_cpccode", ConditionOperator.Equal, rpCodeName);
-                rpCodeLink.Columns = new ColumnSet("gr_referralurl", "gr_cpccode");
+                rpCodeLink.Columns = new ColumnSet("gr_referralurl", "gr_cpccode", "gr_referrername");
                 rpCodeLink.EntityAlias = "rp";
 
                 query.LinkEntities.Add(rpCodeLink);
                 query.AddOrder("createdon", OrderType.Ascending);
 
                 EntityCollection logoImageEntities = CrmService.GetOrganizationServiceProxy().RetrieveMultiple(query);
-                if (logoImageEntities != null && logoImageEntities.Entities!=null && logoImageEntities.Entities.Count > 0)
+                if (logoImageEntities != null && logoImageEntities.Entities != null && logoImageEntities.Entities.Count > 0)
                 {
                     Entity logoImageEntity = logoImageEntities[0];
                     logoData = MapLogoImageToModel(logoImageEntity);
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                
+
             }
             return logoData;
         }
@@ -82,7 +79,7 @@ namespace APCrmAPI.Controllers
                 if (entity.Attributes.ContainsKey("mimetype"))
                 {
                     logoData.Mimetype = entity.Attributes["mimetype"].ToString();
-                } 
+                }
                 if (entity.Attributes.ContainsKey("documentbody"))
                 {
                     logoData.DocumentBody = entity.Attributes["documentbody"].ToString();
@@ -93,14 +90,18 @@ namespace APCrmAPI.Controllers
                 }
                 if (entity.Attributes.ContainsKey("rp.gr_referralurl"))
                 {
-                    logoData.PartnerUrl =  ((AliasedValue)entity.Attributes["rp.gr_referralurl"]).Value.ToString();
+                    logoData.PartnerUrl = ((AliasedValue)entity.Attributes["rp.gr_referralurl"]).Value.ToString();
+                }
+                if (entity.Attributes.ContainsKey("rp.gr_referrername"))
+                {
+                    logoData.PartnerName = ((EntityReference)((AliasedValue)entity.Attributes["rp.gr_referrername"]).Value).Name.ToString();
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-            
+
             }
-            return logoData;    
+            return logoData;
         }
 
         public Guid GetRpCodeGuidByRpCodeName(string rpCodeName)
@@ -120,7 +121,7 @@ namespace APCrmAPI.Controllers
                 }
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
             }
             return rPCodeGuid;
